@@ -55,60 +55,54 @@ server.listen(3000, () => {
 
 /*
 //Exo 2
-import { createServer } from 'http';
+import express from "express";
+const app = express();
 
 const PORT = 8000;
 
-const server = createServer((request, response) => {
-    response.setHeader('Content-Type', 'application/json');
-    if (request.method === "GET") {
+let tasks = [];
 
-        if (request.url === "/") {
-            response.statusCode = 200;
-            response.end(JSON.stringify({ message: "Bienvenue à la page d'accueil !" }));
-        }
+// Route get pour récupérer toutes les tâches
+app.get('/tasks', (req, res) => {
+    res.json(tasks);
+});
 
-        else if (request.url === "/about") {
-            response.statusCode = 200;
-            response.end(JSON.stringify({ message: "À propos de nous" }));
-        }
-
-        else if (request.url === "/data") {
-            response.statusCode = 200;
-            response.end(JSON.stringify({ message: "La route /data a été atteinte" }));
-        }
-
-        else {
-            response.statusCode = 404;
-            response.end(JSON.stringify({ message: "Page not found" }));
-        }
-
-    } else if (request.method === "POST") {
-        let body = '';
-        if (request.url === "/submit") {
-
-            request.on('data', chunk => {
-                body += chunk.toString();
-            });
-
-            request.on('end', () => {
-                response.statusCode = 200;
-                response.end(JSON.stringify({ message: `Données reçues !`, body }));
-            })
-        }
-
-        else {
-            response.statusCode = 404;
-            response.end(JSON.stringify({ message: "Page not found" }));
-        }
-
-    } else {
-        response.statusCode = 405;
-        response.end(JSON.stringify({ message: "Method not allowed" }));
+// Route post pour créer une nouvelle tâche
+app.post('/tasks', (req, res) => {
+    const newTask = {
+        id: tasks.length + 1,
+        title: Date.now().toString(),
     }
-})
+    tasks.push(newTask);
+    res.json(newTask);
+});
 
-server.listen(PORT, () => {
+// Route put pour modifier une tâche par son ID
+app.put('/tasks/:id', (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const task = tasks.find(t => t.id === taskId);
+    if (task) {
+        task.title = Date.now().toString();
+        res.json(task);
+    } else {
+        res.status(404).json({ message: 'Task not found' });
+    }
+});
+
+// Route delete pour supprimer une tâche par son ID
+app.delete('/tasks/:id', (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const taskLength = tasks.length;
+    tasks = tasks.filter(t => t.id !== taskId);
+    if (tasks.length < taskLength) {
+        res.json({ message: 'Task deleted' });
+    } else {
+        res.status(404).json({ message: 'Task not found' });
+    }
+});
+
+
+app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 */
