@@ -53,7 +53,6 @@ server.listen(3000, () => {
 });
 */
 
-/*
 //Exo 2
 import express from "express";
 const app = express();
@@ -105,4 +104,3 @@ app.delete('/tasks/:id', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-*/
