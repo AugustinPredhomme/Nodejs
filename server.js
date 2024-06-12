@@ -119,6 +119,9 @@ import { requestLogger, errorHandler } from "./middlewares/index.js";
 
 const app = express();
 
+// utilisation du mw express.json() pour analyser les body des requêtes en json
+app.use(express.json()); // le payload (le body) de la requete sera accessible depuis req.body
+
 /*
     app.METHOD(path, callback);
 

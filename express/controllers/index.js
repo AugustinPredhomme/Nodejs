@@ -1,1 +1,2 @@
-export * from './postController.js/';
+export * from './postController.js';
+export * from './commentController.js';
