@@ -107,10 +107,14 @@ app.listen(PORT, () => {
 });
 */
 
+
+//J3
 import express from "express";
 import helmet from "helmet";
+import path from "path";
 
 import router from "./routes/index.js";
+import viewRouter from './routes/viewRoute.js';
 
 import { PORT } from "./config/index.js";
 import { requestLogger, errorHandler } from "./middlewares/index.js";
@@ -121,6 +125,15 @@ const app = express();
 
 // utilisation du mw express.json() pour analyser les body des requêtes en json
 app.use(express.json()); // le payload (le body) de la requete sera accessible depuis req.body
+app.use(express.urlencoded({ extended: true })); // lorsque le payload est de type form-data-urlencoded (formulaire)
+
+
+app.set('view engine', 'ejs'); // Configurer express pour utiliser EJS comme moteur de vue
+app.set('views', path.join(process.cwd(), 'views')) // définir le répertoire où sont stockées nos fichiers de vues (views)
+
+// définir le répertoire où sont stockées nos fichiers statiques (css, js, images, etc) pour nos vues ejs
+app.use(express.static(path.join(process.cwd(), 'public')));
+
 
 /*
     app.METHOD(path, callback);
@@ -134,6 +147,9 @@ app.use(requestLogger);
 
 // http://localhost:8000/api
 app.use('/api', router);
+
+// http://localhost:8000/
+app.use('/', viewRouter);
 
 app.use(errorHandler);
 

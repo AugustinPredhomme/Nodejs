@@ -1,5 +1,14 @@
-/*
-    id: string
-    postId: string
-    content: string
-*/
+[
+    {
+        "id": "ff8125bc-fb73-40e0-bb32-de3b2f5dfbb4",
+        "postId": "50e12c97-c84c-42cf-8c87-0aec7b59fdb6",
+        "content": "Ceci est un commentaire sur le premier post.",
+        "authorId": "099f1803-8bee-40e9-b32f-bd04a483c1e3"
+    },
+    {
+        "id": "aff1cc55-aeec-4c50-b371-8b507d999848",
+        "postId": "50e12c97-c84c-42cf-8c87-0aec7b59fdb6",
+        "content": "Ceci est un autre commentaire sur le premier post.",
+        "authorId": "d7ae080c-2c19-4c55-9981-b31ccc0bdd2d"
+    }
+  ]

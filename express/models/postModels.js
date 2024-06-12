@@ -1,5 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url); // /Users/diyae/express/models/postModel.js
+const __dirname = path.dirname(__filename); // /Users/diyae/express/models
 
 // On récupére notre chemin vers le fichier posts.json
 // (__dirname = chemin du fichier actuel à savoir postModel.js)
@@ -38,4 +42,9 @@ export const deletePost = (id) => {
     const index = posts.findIndex(p => p.id === id);
     posts.splice(index, 1);
     fs.writeFileSync(postFilePath, JSON.stringify(posts, null, 2));
+};
+
+export const findPostsByUserId = (userId) => {
+    const posts = findAllPosts();
+    return posts.filter(post => post.authorId === userId);
 };

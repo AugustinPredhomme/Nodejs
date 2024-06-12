@@ -1,5 +1,5 @@
 import { APIResponse } from "../utils/index.js";
-import { pushPost, findAllPosts, findPostById, deletePost, updatePost } from "../models/index.js";
+import { pushPost, findAllPosts, findPostById, deletePost as deleteP, updatePost as updateP } from "../models/index.js";
 import crypto from "crypto";
 
 export const getAllPosts = (request, response) => {
@@ -26,13 +26,13 @@ export const createPost = (request, response) => {
 export const updatePost = (request, response) => {
     const postId = request.params.postId;
     const update = request.body;
-    updatePost(postId, update);
+    updateP(postId, update);
     APIResponse(response, null, `[PUT] Modifier le post avec l'id ${postId}`);
 };
 
 export const deletePost = (request, response) => {
     const postId = request.params.postId;
-    deletePost(postId);
+    deleteP(postId);
     APIResponse(response, null, `[DELETE] Supprimer le post avec l'id ${postId}`);
 };
 

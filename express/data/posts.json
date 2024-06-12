@@ -1,12 +1,14 @@
 [
-    {
-      "id": "50e12c97-c84c-42cf-8c87-0aec7b59fdb6",
-      "title": "Premier Post",
-      "content": "Ceci est le contenu du premier post."
-    },
-    {
-      "id": "eecd8fa9-4361-4bb9-80eb-bf8cb4730935",
-      "title": "Deuxième Post",
-      "content": "Ceci est le contenu du deuxième post."
-    }
+  {
+    "id": "50e12c97-c84c-42cf-8c87-0aec7b59fdb6",
+    "title": "Premier Post",
+    "content": "Ceci est le contenu du premier post.",
+    "authorId": "e8bf7a8e-ada9-43f4-8f9a-ec9466d09dd2"
+  },
+  {
+    "id": "eecd8fa9-4361-4bb9-80eb-bf8cb4730935",
+    "title": "Deuxième Post",
+    "content": "Ceci est le contenu du deuxième post.",
+    "authorId": "4abbf73f-4e12-4e0d-8bf4-3f008e32d3c5"
+  }
 ]
