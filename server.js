@@ -54,6 +54,7 @@ server.listen(3000, () => {
 */
 
 //Exo 2
+/*
 import express from "express";
 const app = express();
 
@@ -100,6 +101,38 @@ app.delete('/tasks/:id', (req, res) => {
     }
 });
 
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+*/
+
+import express from "express";
+import helmet from "helmet";
+
+import router from "./routes/index.js";
+
+import { PORT } from "./config/index.js";
+import { requestLogger, errorHandler } from "./middlewares/index.js";
+
+// API RESTful = Representational State Transfer
+
+const app = express();
+
+/*
+    app.METHOD(path, callback);
+
+    CRUD => Create Read Update Delete
+    URI => Uniform Resource Identifier  + Methode HTTP (get, post delete etc)
+*/
+
+app.use(helmet())
+app.use(requestLogger);
+
+// http://localhost:8000/api
+app.use('/api', router);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
