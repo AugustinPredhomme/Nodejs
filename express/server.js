@@ -112,6 +112,7 @@ app.listen(PORT, () => {
 import express from "express";
 import helmet from "helmet";
 import path from "path";
+import fs from 'fs';
 
 import router from "./routes/index.js";
 import viewRouter from './routes/viewRoute.js';
@@ -150,6 +151,41 @@ app.use('/api', router);
 
 // http://localhost:8000/
 app.use('/', viewRouter);
+
+app.get('/video', (req, res) => {
+  const range = req.headers.range;
+  if(!range) {
+    return res.status(400).send('Range Header is required');
+  }
+
+  //On récupère le chemin du fichier
+  const path = "./uploads/video.mp4";
+  
+  //Et sa taille en bytes
+  const size = fs.statSync(path).size;
+  
+  //Content-Range : header dans la réponse
+  //Content-Range : <unit> <range-start>-<range-end>/<size>
+  const start = Number(range.replace(/\D/g, ''));
+
+  const part = 1*1e6; //1MB
+
+  const end = Math.min(start + part, size - 1);
+
+  const contentLength = end - start + 1;
+
+  const headers = {
+    "Content-Range": `bytes ${start}-${end}/${size}`,
+    "Accept-Ranges": "bytes",
+    "Content-Length": contentLength,
+    "Content-Type": "video/mp4"
+  }
+
+  res.writeHead(206, headers);
+
+  const stream = fs.createReadStream(path, {start, end});
+  
+})
 
 app.use(errorHandler);
 

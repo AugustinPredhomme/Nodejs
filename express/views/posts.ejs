@@ -9,7 +9,14 @@
     <h1>Liste des posts</h1>
     <ul>
         <% posts.forEach(post => { %>
-            <li><strong><%= post.title %></strong>: <%= post.content %></li>
+            <li>
+                <strong><%= post.title %></strong>: <%= post.content %>
+                <ul>
+                    <% post.comments.forEach(comment => { %>
+                        <li><%= comment.content %></li>
+                    <% }) %>
+                </ul>
+            </li>
         <% }) %>
     </ul>
 </body>

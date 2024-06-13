@@ -10,6 +10,15 @@ export const viewHome = (req, res) => {
 
 export const viewPosts = (req, res) => {
     const posts = findAllPosts();
+
+    const postComments = posts.map(post => {
+        const comments = findCommentsByPostId(post.id);
+        return {
+            ...post,
+            comments
+        }
+    })
+
     res.render('posts', {
         posts
     })
